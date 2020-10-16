@@ -1,0 +1,9 @@
+C:\dev\pontoid-teste-pattern\Teste.Dominio\bin\Debug\netcoreapp3.1\Teste.Dominio.deps.json
+C:\dev\pontoid-teste-pattern\Teste.Dominio\bin\Debug\netcoreapp3.1\Teste.Dominio.dll
+C:\dev\pontoid-teste-pattern\Teste.Dominio\bin\Debug\netcoreapp3.1\Teste.Dominio.pdb
+C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.AssemblyInfoInputs.cache
+C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.AssemblyInfo.cs
+C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.csproj.CoreCompileInputs.cache
+C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.dll
+C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.pdb
+C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.csprojAssemblyReference.cache
