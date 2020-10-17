@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Teste.Dominio.Models;
 using Teste.Infra.DataContext;
+using Teste.Infra.Repositorios.Interfaces;
 
 namespace Teste.WebApi.Controllers
 {
@@ -13,93 +15,154 @@ namespace Teste.WebApi.Controllers
     [ApiController]
     public class TurmasController : ControllerBase
     {
-        private readonly PontoiDTesteDb _context;
+        private readonly ITurmaRepository _turmaRepository;
 
-        public TurmasController(PontoiDTesteDb context)
+        public TurmasController(ITurmaRepository turmaRepository)
         {
-            _context = context;
+            _turmaRepository = turmaRepository;
         }
 
         // GET: api/Turmas
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Turma>>> GetTurma()
         {
-            return await _context.Turma.ToListAsync();
+            try
+            {
+                return _turmaRepository.GetAllTurmas();
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+            }
         }
 
         // GET: api/Turmas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Turma>> GetTurma(int id)
+        public ActionResult<Turma> GetTurma(int id)
         {
-            var turma = await _context.Turma.FindAsync(id);
-
-            if (turma == null)
+            try
             {
-                return NotFound();
-            }
+                var turma = _turmaRepository.Get(id);
 
-            return turma;
+                if (turma == null)
+                {
+                    throw new Exception("Não foi encontrada nenhuma turma para o código informado.");
+                }
+
+                return turma;
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+            }
         }
+
+        // GET: api/Turmas/getturmaescola/5
+        [HttpGet("getturmaescola/{id}")]
+        public ActionResult<IEnumerable<Turma>> GetTurmasPorEscola(int id)
+        {
+            try
+            {
+
+                var turmas = _turmaRepository.GetTurmasPorEscola(id);
+
+                if (turmas == null)
+                {
+                    throw new Exception("Não foi encontrado nenhum aluno para o código informado.");
+                }
+
+                return turmas;
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+    }
+}
 
         // PUT: api/Turmas/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTurma(int id, Turma turma)
         {
-            if (id != turma.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(turma).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
+                _turmaRepository.Update(turma);
+
                 if (!TurmaExists(id))
                 {
-                    return NotFound();
+                    throw new Exception("A turma que está tentando atualizar não foi encontrada.");
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return NoContent();
+                if (id != turma.Id)
+                {
+                    throw new Exception("A turma a ser atualizado é diferente do código informado");
+                }
+
+                await _turmaRepository.SaveChangeAsync();
+
+                return Ok($"{turma.Descricao} atualizada com sucesso.");
+
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+            }
         }
 
         // POST: api/Turmas
         [HttpPost]
         public async Task<ActionResult<Turma>> PostTurma(Turma turma)
         {
-            _context.Turma.Add(turma);
-            await _context.SaveChangesAsync();
+            try
+            {
 
-            return CreatedAtAction("GetTurma", new { id = turma.Id }, turma);
+                _turmaRepository.Add(turma);
+
+                if (!await _turmaRepository.SaveChangeAsync())
+                {
+                    return NotFound("Não foi possível adicionar a turma informada, verifique os dados e tente novamente.");
+                }
+
+                return CreatedAtAction("GetTurma", new { id = turma.Id }, turma);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+            }
         }
 
         // DELETE: api/Turmas/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Turma>> DeleteTurma(int id)
         {
-            var turma = await _context.Turma.FindAsync(id);
-            if (turma == null)
+            try
             {
-                return NotFound();
+                var turma = _turmaRepository.Get(id);
+                if (turma == null)
+                {
+                    return NotFound("Turma não encontrada.");
+                }
+
+                _turmaRepository.Delete(id);
+                await _turmaRepository.SaveChangeAsync();
+
+                return Ok($"{turma.Descricao} deletada com sucesso.");
             }
-
-            _context.Turma.Remove(turma);
-            await _context.SaveChangesAsync();
-
-            return turma;
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+            }
         }
 
         private bool TurmaExists(int id)
         {
-            return _context.Turma.Any(e => e.Id == id);
+            var turma = _turmaRepository.Get(id);
+
+            if (turma is null)
+            {
+                return false; ;
+            }
+
+            return true;
         }
     }
 }

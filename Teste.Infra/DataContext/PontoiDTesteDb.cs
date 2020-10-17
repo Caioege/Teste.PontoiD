@@ -52,24 +52,24 @@ namespace Teste.Infra.DataContext
                         {
                             Id = 1,
                             Descricao = "1º ANO A",
-                            Serie = "1º",
-                            Turno = "Matutino",
+                            Serie = 0,
+                            Turno = 0,
                             EscolaId = 1
                         },
                         new Turma()
                         {
                             Id = 2,
                             Descricao = "1º ANO B",
-                            Serie = "1º",
-                            Turno = "Vespertino",
+                            Serie = 1,
+                            Turno = 2,
                             EscolaId = 1
                         },
                         new Turma()
                         {
                             Id = 3,
                             Descricao = "6º ANO A",
-                            Serie = "6º",
-                            Turno = "Vespertino",
+                            Serie = 5,
+                            Turno = 2,
                             EscolaId = 2
                         }
                     }

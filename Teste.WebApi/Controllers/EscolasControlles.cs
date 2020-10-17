@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Teste.Dominio.Models;
 using Teste.Infra.DataContext;
+using Teste.Infra.Repositorios.Interfaces;
 
 namespace Teste.WebApi.Controllers
 {
@@ -14,11 +15,11 @@ namespace Teste.WebApi.Controllers
     [ApiController]
     public class EscolasController : ControllerBase
     {
-        private readonly PontoiDTesteDb _context;
+        private readonly IEscolaRepository _escolaRepository;
 
-        public EscolasController(PontoiDTesteDb context)
+        public EscolasController(IEscolaRepository escolaRepository)
         {
-            _context = context;
+            _escolaRepository = escolaRepository;
         }
 
         // GET: api/Escolas
@@ -27,18 +28,11 @@ namespace Teste.WebApi.Controllers
         {
             try
             {
-                var escolas = await _context.Escola.ToListAsync();
-
-                if (escolas == null)
-                {
-                    return NotFound("Não foram encontradas escolas cadastradas.");
-                }
-
-                return escolas;
+                return _escolaRepository.GetAllEscolas();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Ops! Houve um erro, tente novamente mais tarde.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
             }
 
         }
@@ -49,18 +43,18 @@ namespace Teste.WebApi.Controllers
         {
             try
             {
-                var escola = await _context.Escola.FindAsync(id);
+                var escola = _escolaRepository.Get(id);
 
                 if (escola == null)
                 {
-                    return NotFound("Não foi encontrada escola cadastrada para o código informado.");
+                    throw new Exception("Não foi encontrada nenhuma escola para o código informado.");
                 }
 
                 return escola;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Ops! Houve um erro, tente novamente mais tarde.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
             }
         }
 
@@ -71,34 +65,26 @@ namespace Teste.WebApi.Controllers
 
             try
             {
+                _escolaRepository.Update(escola);
+
+                if (!EscolaExists(id))
+                {
+                    throw new Exception("A escola que está tentando atualizar não foi encontrada.");
+                }
+
                 if (id != escola.Id)
                 {
-                    return BadRequest();
+                    throw new Exception("A turma a ser atualizado é diferente do código informado");
                 }
 
-                _context.Entry(escola).State = EntityState.Modified;
+                await _escolaRepository.SaveChangeAsync();
 
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EscolaExists(id))
-                    {
-                        return NotFound("Não foi encontrada nenhuma escola com o código informado.");
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                return Ok($"{escola.Nome} atualizada com sucesso.");
 
-                return NoContent();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Ops! Houve um erro, tente novamente mais tarde.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
             }
 
         }
@@ -109,19 +95,19 @@ namespace Teste.WebApi.Controllers
         {
             try
             {
-                if (escola == null)
+
+                _escolaRepository.Add(escola);
+
+                if (!await _escolaRepository.SaveChangeAsync())
                 {
-                    return NotFound("Os dados da escola não podem estar vazios.");
+                    return NotFound("Não foi possível adicionar a escola informada, verifique os dados e tente novamente.");
                 }
 
-                _context.Escola.Add(escola);
-                await _context.SaveChangesAsync();
-
-                return CreatedAtAction("GetEscola", new { id = escola.Id }, escola);
+                return CreatedAtAction("GetTurma", new { id = escola.Id }, escola);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Ops! Houve um erro, tente novamente mais tarde.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
             }
 
         }
@@ -133,34 +119,34 @@ namespace Teste.WebApi.Controllers
 
             try
             {
-                var escola = await _context.Escola.FindAsync(id);
+                var escola = _escolaRepository.Get(id);
                 if (escola == null)
                 {
-                    return NotFound("Não foi encontrada nenhuma escola com o código informado.");
+                    return NotFound("Escola não encontrada.");
                 }
 
-                _context.Escola.Remove(escola);
-                await _context.SaveChangesAsync();
+                _escolaRepository.Delete(id);
+                await _escolaRepository.SaveChangeAsync();
 
-                return escola;
+                return Ok($"{escola.Nome} deletada com sucesso.");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Ops! Houve um erro, tente novamente mais tarde.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
             }
 
         }
 
         private bool EscolaExists(int id)
         {
-            try
+            var turma = _escolaRepository.Get(id);
+
+            if (turma is null)
             {
-                return _context.Escola.Any(e => e.Id == id);
+                return false; ;
             }
-            catch (Exception)
-            {
-                return false;
-            }
+
+            return true;
         }
     }
 }

@@ -8,8 +8,8 @@ namespace Teste.Dominio.Models
     {
         public int Id { get; set; }
         public string Descricao { get; set; }
-        public string Serie { get; set; }
-        public string Turno { get; set; }
+        public int Serie { get; set; }
+        public int Turno { get; set; }
 
         public int EscolaId { get; set; }
 

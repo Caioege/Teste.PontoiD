@@ -38,6 +38,8 @@ namespace Teste.WebApi
 
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IAlunoRepository, AlunoRepository>();
+            services.AddScoped<ITurmaRepository, TurmaRepository>();
+            services.AddScoped<IEscolaRepository, EscolaRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

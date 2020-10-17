@@ -38,6 +38,7 @@ namespace Teste.WebApi.Controllers
             
         }
 
+        // GET: api/Alunos/getalunoturma/5
         [HttpGet("getalunoturma/{id}")]
         public ActionResult<IEnumerable<Aluno>> GetAlunosPorTurma(int id)
         {
@@ -59,6 +60,28 @@ namespace Teste.WebApi.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
             }
             
+        }
+
+        // GET: api/Alunos/getalunoescola/5
+        [HttpGet("getalunoescola/{id}")]
+        public ActionResult<IEnumerable<Aluno>> GetAlunosPorEscola(int id)
+        {
+            try
+            {
+
+                var alunos = _alunoRepository.GetAlunosPorEscola(id);
+
+                if (alunos is null)
+                {
+                    throw new Exception("Não foi encontrado nenhum aluno para o código informado.");
+                }
+
+                return alunos;
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+            }
         }
 
         // GET: api/Alunos/5
