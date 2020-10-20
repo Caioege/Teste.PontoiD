@@ -1,4 +1,4 @@
-﻿@model Teste.Dominio.Models.Escola;
+﻿@model Teste.Dominio.Models.Turma;
 
 
 <div class="content">
@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title">Atualizar Escola</h4>
+                        <h4 class="card-title">Atualizar Turma</h4>
                         <p class="card-category">Informe os dados e clique em salvar.</p>
                     </div>
                     <div class="card-body">
@@ -16,16 +16,35 @@
                             <input type="hidden" asp-for="Id" />
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Nome</label>
-                                        <input asp-for="Nome" type="text" class="form-control">
+                                        <label class="bmd-label-floating">Escola:</label>
+                                        <input asp-for="EscolaTurma.Nome" type="text" class="form-control" disabled>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Descrição</label>
+                                        <input asp-for="Descricao" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Código Inep</label>
-                                        <input maxlength="8" asp-for="Inep" type="text" class="form-control">
+                                        <label class="bmd-label-floating">Descrição</label>
+                                        <input asp-for="Serie" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Descrição</label>
+                                        <input asp-for="Turno" type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>

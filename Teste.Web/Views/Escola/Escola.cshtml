@@ -1,17 +1,18 @@
 ﻿@model List<Teste.Dominio.Models.Escola>;
 
-    <section>
-        <div class="container">
-            <div class="pull-right">
-                <a class="btn btn-primary btn-round" asp-controller="Escola" asp-action="Adicionar">
-                    <i class="material-icons">library_add</i> Escola
-                </a>
-            </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <a class="btn btn-primary btn-round" asp-controller="Escola" asp-action="Adicionar">
+                <i class="material-icons">library_add</i> Adicionar Escola
+            </a>
         </div>
-    </section>
+    </div>
+</div>        
 
     <div class="content">
         <div class="container-fluid">
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -22,17 +23,16 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class=" text-primary">
-                                        <th>
-                                            ID
-                                        </th>
-                                        <th>
-                                            Nome
-                                        </th>
-                                        <th>
-                                            Inep
-                                        </th>
                                     <th>
-
+                                        ID
+                                    </th>
+                                    <th>
+                                        Nome
+                                    </th>
+                                    <th>
+                                        Inep
+                                    </th>
+                                    <th>
                                     </th>
                                     <tbody>
                                         @foreach (var escola in Model)

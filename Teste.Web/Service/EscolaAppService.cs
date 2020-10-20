@@ -74,7 +74,7 @@ namespace Teste.Web.Service
 
 
                     var url = "https://localhost:5001/api/Escolas";
-                    var response = client.PostAsync(string.Format(url), escolaJson).Result;
+                    var response = client.PostAsync(url, escolaJson).Result;
 
                     return true;
                 }
@@ -99,8 +99,27 @@ namespace Teste.Web.Service
                     escolaJson.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
 
-                    var url = "https://localhost:5001/api/Escolas";
+                    var url = "https://localhost:5001/api/Escolas/" + escola.Id;
                     var response = client.PutAsync(string.Format(url), escolaJson).Result;
+
+                    return true;
+                }
+            }
+        }
+
+        public bool DeletarEscola(int Id)
+        {
+            using (var httpClientHandler = new HttpClientHandler())
+            {
+                httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)768 | (SecurityProtocolType)3072;
+                //send request
+
+                using (var client = new HttpClient(httpClientHandler))
+                {
+                    var url = "https://localhost:5001/api/Escolas/" + Id;
+                    var response = client.DeleteAsync(string.Format(url)).Result;
 
                     return true;
                 }

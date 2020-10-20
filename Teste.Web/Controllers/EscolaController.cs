@@ -61,5 +61,12 @@ namespace Teste.Web.Controllers
 
             return RedirectToAction(nameof(Escola));
         }
+
+        public IActionResult Deletar(int Id)
+        {
+            new EscolaAppService().DeletarEscola(Id);
+
+            return RedirectToAction(nameof(Escola));
+        }
     }
 }
