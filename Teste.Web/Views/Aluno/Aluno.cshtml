@@ -1,0 +1,59 @@
+﻿@model List<Teste.Dominio.Models.Aluno>;
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Escolas</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Nome
+                                </th>
+                                <th>
+                                    Nascimento
+                                </th>
+                                <th>
+                                    Turma
+                                </th>
+                                <th>
+                                </th>
+                                <tbody>
+                                    @foreach (var aluno in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @aluno.Id
+                                            </td>
+                                            <td>
+                                                @aluno.Nome
+                                            </td>
+                                            <td>
+                                                @aluno.Nascimento.ToShortDateString()
+                                            </td>
+                                            <td>
+                                                @aluno.TurmaAluno.Descricao
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-primary btn-fab btn-fab-mini btn-round">
+                                                    <i class="material-icons">edit</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

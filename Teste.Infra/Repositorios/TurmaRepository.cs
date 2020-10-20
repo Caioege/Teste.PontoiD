@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,6 +43,7 @@ namespace Teste.Infra.Repositorios
         public List<Turma> GetAllTurmas()
         {
             return _context.Turma
+                .Include(a => a.EscolaTurma)
                 .OrderBy(a => a.Descricao)
                 .ThenBy(a => a.EscolaId)
                 .ToList();

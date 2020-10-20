@@ -1,0 +1,82 @@
+﻿@model List<Teste.Dominio.Models.Turma>;
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Turmas</h4>
+                    </div>
+                    <div class="card-body">
+
+                        @if (Model != null)
+                        {
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Descrição
+                                    </th>
+                                    <th>
+                                        Série
+                                    </th>
+                                    <th>
+                                        Turno
+                                    </th>
+                                    <th>
+                                        Escola
+                                    </th>
+                                    <th>
+                                    </th>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var turma in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @turma.Id
+                                                </td>
+                                                <td>
+                                                    @turma.Descricao
+                                                </td>
+                                                <td>
+                                                    @turma.Serie
+                                                </td>
+                                                <td>
+                                                    @turma.Turno
+                                                </td>
+                                                <td>
+                                                    @turma.EscolaTurma.Nome
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-primary btn-fab btn-fab-mini btn-round">
+                                                        <i class="material-icons">edit</i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="alert alert-info alert-with-icon" data-notify="container">
+                                <i class="material-icons" data-notify="icon">block</i>
+                                <span data-notify="message">Nenhuma turma cadastrada</span>
+                            </div>
+                        }
+                        </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

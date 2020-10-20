@@ -9,4 +9,7 @@ C:\dev\pontoid-teste-pattern\Teste.Infra\obj\Debug\netcoreapp3.1\Teste.Infra.pdb
 C:\dev\pontoid-teste-pattern\Teste.Infra\bin\Debug\netcoreapp3.1\Teste.Dominio.dll
 C:\dev\pontoid-teste-pattern\Teste.Infra\bin\Debug\netcoreapp3.1\Teste.Dominio.pdb
 C:\dev\pontoid-teste-pattern\Teste.Infra\obj\Debug\netcoreapp3.1\Teste.Infra.csproj.CopyComplete
+C:\dev\pontoid-teste-pattern\Teste.Infra\bin\Debug\netcoreapp3.1\Teste.Infra.runtimeconfig.json
+C:\dev\pontoid-teste-pattern\Teste.Infra\bin\Debug\netcoreapp3.1\Teste.Infra.runtimeconfig.dev.json
+C:\dev\pontoid-teste-pattern\Teste.Infra\obj\Debug\netcoreapp3.1\Teste.Infra.genruntimeconfig.cache
 C:\dev\pontoid-teste-pattern\Teste.Infra\obj\Debug\netcoreapp3.1\Teste.Infra.csproj.CoreCompileInputs.cache

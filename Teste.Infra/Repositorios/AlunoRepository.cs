@@ -43,7 +43,11 @@ namespace Teste.Infra.Repositorios
 
         public List<Aluno> GetAllAunos()
         {
-            return _context.Aluno.OrderBy(a => a.Nome).ToList();
+            return _context.Aluno
+                .Include(a => a.TurmaAluno)
+                .OrderBy(a => a.Nome)
+                .ThenBy(a => a.TurmaAluno.EscolaId)
+                .ToList();
         }
 
         public List<Aluno> GetAlunosPorTurma(int turmaId)

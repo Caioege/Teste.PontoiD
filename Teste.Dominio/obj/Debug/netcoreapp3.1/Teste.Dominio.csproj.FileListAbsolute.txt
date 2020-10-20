@@ -3,7 +3,10 @@ C:\dev\pontoid-teste-pattern\Teste.Dominio\bin\Debug\netcoreapp3.1\Teste.Dominio
 C:\dev\pontoid-teste-pattern\Teste.Dominio\bin\Debug\netcoreapp3.1\Teste.Dominio.pdb
 C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.AssemblyInfoInputs.cache
 C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.AssemblyInfo.cs
-C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.csproj.CoreCompileInputs.cache
 C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.dll
 C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.pdb
 C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.csprojAssemblyReference.cache
+C:\dev\pontoid-teste-pattern\Teste.Dominio\bin\Debug\netcoreapp3.1\Teste.Dominio.runtimeconfig.json
+C:\dev\pontoid-teste-pattern\Teste.Dominio\bin\Debug\netcoreapp3.1\Teste.Dominio.runtimeconfig.dev.json
+C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.csproj.CoreCompileInputs.cache
+C:\dev\pontoid-teste-pattern\Teste.Dominio\obj\Debug\netcoreapp3.1\Teste.Dominio.genruntimeconfig.cache

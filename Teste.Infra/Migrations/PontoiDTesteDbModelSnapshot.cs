@@ -145,8 +145,8 @@ namespace Teste.Infra.Migrations
                             Id = 2,
                             Descricao = "1º ANO B",
                             EscolaId = 1,
-                            Serie = 1,
-                            Turno = 2
+                            Serie = 0,
+                            Turno = 1
                         },
                         new
                         {
@@ -154,7 +154,7 @@ namespace Teste.Infra.Migrations
                             Descricao = "6º ANO A",
                             EscolaId = 2,
                             Serie = 5,
-                            Turno = 2
+                            Turno = 1
                         });
                 });
 

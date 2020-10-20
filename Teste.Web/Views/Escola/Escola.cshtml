@@ -1,0 +1,66 @@
+﻿@model List<Teste.Dominio.Models.Escola>;
+
+    <section>
+        <div class="container">
+            <div class="pull-right">
+                <a class="btn btn-primary btn-round" asp-controller="Escola" asp-action="Adicionar">
+                    <i class="material-icons">library_add</i> Escola
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title ">Escolas</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <th>
+                                            ID
+                                        </th>
+                                        <th>
+                                            Nome
+                                        </th>
+                                        <th>
+                                            Inep
+                                        </th>
+                                    <th>
+
+                                    </th>
+                                    <tbody>
+                                        @foreach (var escola in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @escola.Id
+                                                </td>
+                                                <td>
+                                                    @escola.Nome
+                                                </td>
+                                                <td>
+                                                    @escola.Inep
+                                                </td>
+                                                <td>
+                                                    <div class="pull-right">
+                                                        <a asp-action="Atualizar" asp-route-id="@escola.Id" class="btn btn-primary btn-fab btn-fab-mini btn-round">
+                                                            <i class="material-icons">edit</i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
