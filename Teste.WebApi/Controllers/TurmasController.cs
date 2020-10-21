@@ -68,7 +68,7 @@ namespace Teste.WebApi.Controllers
 
                 if (turmas == null)
                 {
-                    throw new Exception("Não foi encontrado nenhum aluno para o código informado.");
+                    throw new Exception("Não foi encontrado nenhuma turma para o código informado.");
                 }
 
                 return turmas;

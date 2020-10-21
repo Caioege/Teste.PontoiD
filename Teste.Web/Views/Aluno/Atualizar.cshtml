@@ -1,0 +1,100 @@
+﻿@model Teste.Dominio.Models.Aluno;
+
+@section scripts {
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+    <script>
+        $(document).ready(function () {
+            var $seuCampoCpf = $("#CPF");
+            $seuCampoCpf.mask('000.000.000-00', { reverse: true });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "yy/mm/dd",
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                showButtonPanel: true,
+                changeMonth: true,
+                changeYear: true,
+                gotoCurrent: true,
+            });
+        });
+    </script>
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Atualizar Aluno</h4>
+                        <p class="card-category">Informe os dados e clique em salvar.</p>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+
+                            <input type="hidden" asp-for="Id" ; />
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Nome</label>
+                                        <input asp-for="Nome" type="text" class="form-control">
+                                        <span asp-validation-for="Nome" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Data de Nascimento</label>
+                                        <input asp-for="Nascimento" class="form-control datepicker" />
+                                        <span asp-validation-for="Nascimento" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">CPF</label>
+                                        <input id="CPF" asp-for="Cpf" type="text" class="form-control">
+                                        <span asp-validation-for="Cpf" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (Model.TurmaId > 0)
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Turma | Turno | Escola</label>
+                                            <select asp-items="@ViewBag.TurmaAluno" asp-for="TurmaId" class="form-control selectpicker" data-style="btn btn-link">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <a asp-controller="Aluno" asp-action="Aluno" class="btn btn-dark btn-round">
+                                <i class="material-icons">arrow_back</i> Voltar
+                            </a>
+
+                            <button type="submit" class="btn btn-info pull-right btn-round">
+                                <i class="material-icons">save</i> Salvar
+                            </button>
+
+                            <a asp-controller="Escola" asp-action="Deletar" asp-route-id="@Model.Id" class="btn btn-danger pull-right btn-round">
+                                <i class="material-icons">delete_forever</i> Deletar
+                            </a>
+
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

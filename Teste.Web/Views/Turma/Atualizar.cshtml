@@ -14,11 +14,12 @@
                         <form method="post">
 
                             <input type="hidden" asp-for="Id" />
+                            <input type="hidden" asp-for="EscolaId" />
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Escola:</label>
+                                        <label class="bmd-label-floating">Escola</label>
                                         <input asp-for="EscolaTurma.Nome" type="text" class="form-control" disabled>
                                     </div>
                                 </div>
@@ -29,6 +30,7 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Descrição</label>
                                         <input asp-for="Descricao" type="text" class="form-control">
+                                        <span asp-validation-for="Descricao" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -36,28 +38,85 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Descrição</label>
-                                        <input asp-for="Serie" type="text" class="form-control">
+                                        <label class="bmd-label-floating">Série</label>
+                                        <select asp-for="Serie" asp-items="@ViewBag.Serie" class="form-control selectpicker" data-style="btn btn-link">
+                                        </select>
+                                        <span asp-validation-for="Serie" class="text-danger"></span>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">Descrição</label>
-                                        <input asp-for="Turno" type="text" class="form-control">
+                                        <label class="bmd-label-floating">Turno</label>
+                                        <select asp-for="Turno" asp-items="@ViewBag.Turno" class="form-control selectpicker" data-style="btn btn-link">
+                                        </select>
+                                        <span asp-validation-for="Turno" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
 
-                            <a asp-controller="Escola" asp-action="Escola" class="btn btn-dark">
+                            @if (@ViewBag.Alunos.Count > 0)
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="card-title ">Alunos da Turma</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead class=" text-primary">
+                                                        <th>
+                                                            ID
+                                                        </th>
+                                                        <th>
+                                                            Nome
+                                                        </th>
+                                                        <th>
+                                                            Nascimento
+                                                        </th>
+                                                        <th>
+                                                        </th>
+                                                        <tbody>
+                                                            @foreach (var aluno in ViewBag.Alunos)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        @aluno.Id
+                                                                    </td>
+                                                                    <td>
+                                                                        @aluno.Nome
+                                                                    </td>
+                                                                    <td>
+                                                                        @aluno.Nascimento.ToShortDateString()
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="pull-right">
+                                                                            <a asp-action="Atualizar" asp-controller="Aluno" asp-route-id="@aluno.Id" class="btn btn-primary btn-fab btn-fab-mini btn-round">
+                                                                                <i class="material-icons">edit</i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                             }
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <a asp-controller="Turma" asp-action="Turma" class="btn btn-dark btn-round">
                                 <i class="material-icons">arrow_back</i> Voltar
                             </a>
 
-                            <button type="submit" class="btn btn-info pull-right">
+                            <button type="submit" class="btn btn-info pull-right btn-round">
                                 <i class="material-icons">save</i> Salvar
                             </button>
 
-                            <a asp-controller="Escola" asp-action="Deletar" asp-route-id="@Model.Id" class="btn btn-danger pull-right">
+                            <a asp-controller="Turma" asp-action="Deletar" asp-route-id="@Model.Id" class="btn btn-danger pull-right btn-round">
                                 <i class="material-icons">delete_forever</i> Deletar
                             </a>
 

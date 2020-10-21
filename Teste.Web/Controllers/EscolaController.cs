@@ -40,6 +40,7 @@ namespace Teste.Web.Controllers
             {
                 new EscolaAppService().AdicionarEscola(escola);
 
+                ViewBag.Mensagem = $"{escola.Nome} adicionada com sucesso!";
                 return RedirectToAction(nameof(Escola));
             }
 
@@ -57,15 +58,22 @@ namespace Teste.Web.Controllers
         [HttpPost]
         public IActionResult Atualizar([FromForm] Escola escola)
         {
-            var esc = new EscolaAppService().AtualizarEscola(escola);
+            if (ModelState.IsValid)
+            {
+                new EscolaAppService().AtualizarEscola(escola);
 
-            return RedirectToAction(nameof(Escola));
+                ViewBag.Mensagem = $"{escola.Nome} atualizada com sucesso!";
+                return RedirectToAction(nameof(Escola));
+            }
+
+            return View(escola);
         }
 
         public IActionResult Deletar(int Id)
-        {
+        {        
             new EscolaAppService().DeletarEscola(Id);
 
+            ViewBag.Mensagem = "Escola deletada com sucesso!";
             return RedirectToAction(nameof(Escola));
         }
     }

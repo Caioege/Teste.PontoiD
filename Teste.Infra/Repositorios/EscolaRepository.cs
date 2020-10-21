@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,7 +37,9 @@ namespace Teste.Infra.Repositorios
 
         public Escola Get(int Id)
         {
-            return _context.Escola.Find(Id);
+            return _context.Escola
+                .Include(a => a.Turmas)
+                .FirstOrDefault(a => a.Id == Id);
         }
 
         public List<Escola> GetAllEscolas()

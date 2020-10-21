@@ -44,8 +44,8 @@ namespace Teste.Infra.Repositorios
         {
             return _context.Turma
                 .Include(a => a.EscolaTurma)
-                .OrderBy(a => a.Descricao)
-                .ThenBy(a => a.EscolaId)
+                .OrderBy(a => a.EscolaId)
+                .ThenBy(a => a.Descricao)
                 .ToList();
         }
 

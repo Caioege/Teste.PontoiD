@@ -8,30 +8,30 @@ namespace Teste.Dominio.Enums
     public enum eSerie
     {
         [Description("1º ANO")]
-        Primeiro = 0,
+        Primeira,
 
         [Description("2º ANO")]
-        Segundo = 1,
+        Segunda,
 
         [Description("3º ANO")]
-        Terceiro = 2,
+        Terceira,
 
         [Description("4º ANO")]
-        Quarto = 3,
+        Quarta,
 
         [Description("5º ANO")]
-        Quinto = 4,
+        Quinta,
 
         [Description("6º ANO")]
-        Sexto = 5,
+        Sexta,
 
         [Description("7º ANO")]
-        Setimo = 6,
+        Setima,
 
         [Description("8º ANO")]
-        Oitavo = 7,
+        Oitava,
 
         [Description("9º ANO")]
-        Nono = 8,
+        Nona,
     }
 }

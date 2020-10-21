@@ -8,59 +8,73 @@
             </a>
         </div>
     </div>
-</div>        
+</div>
 
+@if (ViewBag.Mensagem != null)
+{
     <div class="content">
-        <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Daora!</strong> @TempData["MSG_SUCESSO"]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+}
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Escolas</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class=" text-primary">
-                                    <th>
-                                        ID
-                                    </th>
-                                    <th>
-                                        Nome
-                                    </th>
-                                    <th>
-                                        Inep
-                                    </th>
-                                    <th>
-                                    </th>
-                                    <tbody>
-                                        @foreach (var escola in Model)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @escola.Id
-                                                </td>
-                                                <td>
-                                                    @escola.Nome
-                                                </td>
-                                                <td>
-                                                    @escola.Inep
-                                                </td>
-                                                <td>
-                                                    <div class="pull-right">
-                                                        <a asp-action="Atualizar" asp-route-id="@escola.Id" class="btn btn-primary btn-fab btn-fab-mini btn-round">
-                                                            <i class="material-icons">edit</i>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        }
-                                </table>
-                            </div>
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Escolas</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Nome
+                                </th>
+                                <th>
+                                    Inep
+                                </th>
+                                <th>
+                                </th>
+                                <tbody>
+                                    @foreach (var escola in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @escola.Id
+                                            </td>
+                                            <td>
+                                                @escola.Nome
+                                            </td>
+                                            <td>
+                                                @escola.Inep
+                                            </td>
+                                            <td>
+                                                <div class="pull-right">
+                                                    <a asp-action="Atualizar" asp-route-id="@escola.Id" class="btn btn-primary btn-fab btn-fab-mini btn-round">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>

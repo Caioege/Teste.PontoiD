@@ -1,5 +1,15 @@
 ﻿@model List<Teste.Dominio.Models.Aluno>;
 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <a class="btn btn-primary btn-round" asp-controller="Aluno" asp-action="Adicionar">
+                    <i class="material-icons">library_add</i> Adicionar Aluno
+                </a>
+            </div>
+        </div>
+    </div>
+
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -43,9 +53,9 @@
                                                 @aluno.TurmaAluno.Descricao
                                             </td>
                                             <td>
-                                                <button class="btn btn-primary btn-fab btn-fab-mini btn-round">
+                                                <a asp-controller="Aluno" asp-action="Atualizar" asp-route-id="@aluno.Id" class="btn btn-primary btn-fab btn-fab-mini btn-round pull-right">
                                                     <i class="material-icons">edit</i>
-                                                </button>
+                                                </a>
                                             </td>
                                         </tr>
                                     }

@@ -53,7 +53,7 @@ namespace Teste.Infra.DataContext
                         {
                             Id = 1,
                             Descricao = "1º ANO A",
-                            Serie = eSerie.Primeiro,
+                            Serie = eSerie.Primeira,
                             Turno = eTurno.Matutino,
                             EscolaId = 1
                         },
@@ -61,7 +61,7 @@ namespace Teste.Infra.DataContext
                         {
                             Id = 2,
                             Descricao = "1º ANO B",
-                            Serie = eSerie.Primeiro,
+                            Serie = eSerie.Primeira,
                             Turno = eTurno.Vespertino,
                             EscolaId = 1
                         },
@@ -69,7 +69,7 @@ namespace Teste.Infra.DataContext
                         {
                             Id = 3,
                             Descricao = "6º ANO A",
-                            Serie = eSerie.Sexto,
+                            Serie = eSerie.Sexta,
                             Turno = eTurno.Vespertino,
                             EscolaId = 2
                         }

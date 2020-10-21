@@ -42,7 +42,6 @@ namespace Teste.WebApi
 
             services.AddControllers();
 
-            services.AddScoped<IRepository, Repository>();
             services.AddScoped<IAlunoRepository, AlunoRepository>();
             services.AddScoped<ITurmaRepository, TurmaRepository>();
             services.AddScoped<IEscolaRepository, EscolaRepository>();
