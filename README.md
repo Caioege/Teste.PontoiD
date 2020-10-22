@@ -25,11 +25,11 @@ O teste é composto de 4 projetos:
 2. Abra a solução (encontra-se dentro da pasta PontoiD-Teste) ou o Visual Studio na pasta do repositório
 3. Configure sua string connection nos arquivos 'appsettings.json', tanto do projeto Teste.Web quanto do projeto Teste.WebApi
 4. Abra terminal de pacotes do NuGet
-	4.1 Selecione o projeto Teste.Infra
-	4.2 Execute o comando 'Add-Migration Teste'
-	4.3 Execute o comando 'Update-Database' para criar o banco de dados e alimentar com a carga inicial de dados
+  4.1 Selecione o projeto Teste.Infra
+  4.2 Execute o comando 'Add-Migration Teste'
+  4.3 Execute o comando 'Update-Database' para criar o banco de dados e alimentar com a carga inicial de dados
 5. Abra a pasta Teste.WebApi
-	5.1 Abra o terminal (dentro da pasta) e execute o comando 'dotnet watch run' para executar api
+  5.1 Abra o terminal (dentro da pasta) e execute o comando 'dotnet watch run' para executar api
 6. No Visual Studio, execute a aplicação com o projeto 'Teste.Web'
 7. Navegue entre as telas e os endpoints da API
 
