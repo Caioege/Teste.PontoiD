@@ -1,92 +1,106 @@
 ﻿@model List<Teste.Dominio.Models.Turma>;
 
-    <div class="row">
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <a class="btn btn-primary btn-round" asp-controller="Turma" asp-action="Adicionar">
+                <i class="material-icons">library_add</i> Adicionar Turma
+            </a>
+        </div>
+    </div>
+</div>
+
+@if (@TempData["MSG_SUCESSO"] != null)
+{
+    <div class="content">
         <div class="col-md-12">
-            <div class="pull-right">
-                <a class="btn btn-primary btn-round" asp-controller="Turma" asp-action="Adicionar">
-                    <i class="material-icons">library_add</i> Adicionar Turma
-                </a>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Daora!</strong> @TempData["MSG_SUCESSO"]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         </div>
     </div>
+}
 
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Turmas</h4>
-                        </div>
-                        <div class="card-body">
-
-                            @if (Model != null)
-                            {
-
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead class=" text-primary">
-                                        <th>
-                                            ID
-                                        </th>
-                                        <th>
-                                            Descrição
-                                        </th>
-                                        <th>
-                                            Série
-                                        </th>
-                                        <th>
-                                            Turno
-                                        </th>
-                                        <th>
-                                            Escola
-                                        </th>
-                                        <th>
-                                        </th>
-                                        </thead>
-
-                                        <tbody>
-                                            @foreach (var turma in Model)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        @turma.Id
-                                                    </td>
-                                                    <td>
-                                                        @turma.Descricao
-                                                    </td>
-                                                    <td>
-                                                        @turma.Serie
-                                                    </td>
-                                                    <td>
-                                                        @turma.Turno
-                                                    </td>
-                                                    <td>
-                                                        @turma.EscolaTurma.Nome
-                                                    </td>
-                                                    <td>
-                                                        <a asp-action="Atualizar" asp-route-id="@turma.Id" class="btn btn-primary btn-fab btn-fab-mini btn-round pull-right">
-                                                            <i class="material-icons">edit</i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            }
-                                </div>
-
-                            }
-                            else
-                            {
-                                <div class="alert alert-info alert-with-icon" data-notify="container">
-                                    <i class="material-icons" data-notify="icon">block</i>
-                                    <span data-notify="message">Nenhuma turma cadastrada</span>
-                                </div>
-                            }
-                            </tbody>
-                            </table>
-                        </div>
-
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Turmas</h4>
                     </div>
+                    <div class="card-body">
+
+                        @if (Model != null)
+                        {
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Descrição
+                                    </th>
+                                    <th>
+                                        Série
+                                    </th>
+                                    <th>
+                                        Turno
+                                    </th>
+                                    <th>
+                                        Escola
+                                    </th>
+                                    <th>
+                                    </th>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var turma in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @turma.Id
+                                                </td>
+                                                <td>
+                                                    @turma.Descricao
+                                                </td>
+                                                <td>
+                                                    @turma.Serie
+                                                </td>
+                                                <td>
+                                                    @turma.Turno
+                                                </td>
+                                                <td>
+                                                    @turma.EscolaTurma.Nome
+                                                </td>
+                                                <td>
+                                                    <a asp-action="Atualizar" asp-route-id="@turma.Id" class="btn btn-primary btn-fab btn-fab-mini btn-round pull-right">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="alert alert-info alert-with-icon" data-notify="container">
+                                <i class="material-icons" data-notify="icon">block</i>
+                                <span data-notify="message">Nenhuma turma cadastrada</span>
+                            </div>
+                        }
+                        </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+</div>

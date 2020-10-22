@@ -37,9 +37,7 @@ namespace Teste.Infra.Repositorios
 
         public Escola Get(int Id)
         {
-            return _context.Escola
-                .Include(a => a.Turmas)
-                .FirstOrDefault(a => a.Id == Id);
+            return _context.Escola.Find(Id);
         }
 
         public List<Escola> GetAllEscolas()

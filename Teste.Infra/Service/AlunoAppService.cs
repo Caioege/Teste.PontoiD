@@ -1,19 +1,18 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 using Teste.Dominio.Models;
+using Teste.Infra.Service.Interfaces;
 
-namespace Teste.Web.Service
+namespace Teste.Infra.Service
 {
-    public class EscolaAppService
+    public class AlunoAppService : IAlunoAppService
     {
-        public Escola GetEscola(int id)
+        public List<Aluno> GetAlunos()
         {
             using (var httpClientHandler = new HttpClientHandler())
             {
@@ -24,18 +23,19 @@ namespace Teste.Web.Service
 
                 using (var client = new HttpClient(httpClientHandler))
                 {
-                    var url = "https://localhost:5001/api/Escolas/" + id;
-                    var response = client.GetStringAsync(string.Format(url));
+                    var url = "https://localhost:5001/api/Alunos";
+                    var response = client.GetStringAsync(url);
 
-                    var escolas = JsonConvert.DeserializeObject(response.Result, typeof(Escola));
+                    var alunos = JsonConvert.DeserializeObject(response.Result, typeof(List<Aluno>));
 
-                    return escolas as Escola;
+                    return alunos as List<Aluno>;
                 }
             }
         }
 
-        public List<Escola> GetEscolas()
+        public Aluno GetAluno(int id)
         {
+
             using (var httpClientHandler = new HttpClientHandler())
             {
                 httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
@@ -45,43 +45,17 @@ namespace Teste.Web.Service
 
                 using (var client = new HttpClient(httpClientHandler))
                 {
-                    var url = "https://localhost:5001/api/Escolas";
-                    var response = client.GetStringAsync(string.Format(url));
+                    var url = "https://localhost:5001/api/Alunos/" + id;
+                    var response = client.GetStringAsync(url);
 
-                    var escolas = JsonConvert.DeserializeObject(response.Result, typeof(List<Escola>));
+                    var aluno = JsonConvert.DeserializeObject(response.Result, typeof(Aluno));
 
-                    return escolas as List<Escola>;
+                    return aluno as Aluno;
                 }
             }
         }
 
-        public bool AdicionarEscola(Escola escola)
-        {
-            using (var httpClientHandler = new HttpClientHandler())
-            {
-                httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-                httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
-                ServicePointManager.SecurityProtocol = (SecurityProtocolType)768 | (SecurityProtocolType)3072;
-                //send request
-
-                using (var client = new HttpClient(httpClientHandler))
-                {
-                    //CONVERTE DE STRING PARA HTTP CONTENT
-                    string json = JsonConvert.SerializeObject(escola, Formatting.Indented);
-                    var buffer = System.Text.Encoding.UTF8.GetBytes(json);
-                    var escolaJson = new ByteArrayContent(buffer);
-                    escolaJson.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-
-                    var url = "https://localhost:5001/api/Escolas";
-                    var response = client.PostAsync(url, escolaJson).Result;
-
-                    return true;
-                }
-            }
-        }
-
-        public bool AtualizarEscola(Escola escola)
+        public void AdicionarAluno(Aluno aluno)
         {
             using (var httpClientHandler = new HttpClientHandler())
             {
@@ -93,21 +67,18 @@ namespace Teste.Web.Service
                 using (var client = new HttpClient(httpClientHandler))
                 {
                     //CONVERTE DE STRING PARA HTTP CONTENT
-                    string json = JsonConvert.SerializeObject(escola, Formatting.Indented);
+                    string json = JsonConvert.SerializeObject(aluno, Formatting.Indented);
                     var buffer = System.Text.Encoding.UTF8.GetBytes(json);
-                    var escolaJson = new ByteArrayContent(buffer);
-                    escolaJson.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    var alunoJson = new ByteArrayContent(buffer);
+                    alunoJson.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-
-                    var url = "https://localhost:5001/api/Escolas/" + escola.Id;
-                    var response = client.PutAsync(string.Format(url), escolaJson).Result;
-
-                    return true;
+                    var url = "https://localhost:5001/api/Alunos";
+                    var response = client.PostAsync(url, alunoJson).Result;
                 }
             }
         }
 
-        public bool DeletarEscola(int Id)
+        public List<Aluno> GetAlunosPorTurma(int Id)
         {
             using (var httpClientHandler = new HttpClientHandler())
             {
@@ -118,13 +89,54 @@ namespace Teste.Web.Service
 
                 using (var client = new HttpClient(httpClientHandler))
                 {
-                    var url = "https://localhost:5001/api/Escolas/" + Id;
-                    var response = client.DeleteAsync(string.Format(url)).Result;
+                    var url = "https://localhost:5001/api/Alunos/getalunoturma/" + Id;
+                    var response = client.GetStringAsync(url);
 
-                    return true;
+                    var alunos = JsonConvert.DeserializeObject(response.Result, typeof(List<Aluno>));
+
+                    return alunos as List<Aluno>;
                 }
             }
         }
 
+        public void AtualizarAluno(Aluno aluno)
+        {
+            using (var httpClientHandler = new HttpClientHandler())
+            {
+                httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)768 | (SecurityProtocolType)3072;
+                //send request
+
+                using (var client = new HttpClient(httpClientHandler))
+                {
+                    //CONVERTE DE STRING PARA HTTP CONTENT
+                    string json = JsonConvert.SerializeObject(aluno, Formatting.Indented);
+                    var buffer = System.Text.Encoding.UTF8.GetBytes(json);
+                    var alunoJson = new ByteArrayContent(buffer);
+                    alunoJson.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                    var url = "https://localhost:5001/api/Alunos/" + aluno.Id;
+                    var response = client.PutAsync(url, alunoJson).Result;
+                }
+            }
+        }
+
+        public void DeletarAluno(int id)
+        {
+            using (var httpClientHandler = new HttpClientHandler())
+            {
+                httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)768 | (SecurityProtocolType)3072;
+                //send request
+
+                using (var client = new HttpClient(httpClientHandler))
+                {
+                    var url = "https://localhost:5001/api/Alunos/" + id;
+                    var response = client.DeleteAsync(url).Result;
+                }
+            }
+        }
     }
 }

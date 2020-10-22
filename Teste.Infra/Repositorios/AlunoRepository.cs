@@ -66,6 +66,5 @@ namespace Teste.Infra.Repositorios
         {
             return (await _context.SaveChangesAsync() > 0);
         }
-        
     }
 }

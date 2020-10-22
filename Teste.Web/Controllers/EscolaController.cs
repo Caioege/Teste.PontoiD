@@ -6,23 +6,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Teste.Dominio.Models;
+using Teste.Infra.Service.Interfaces;
 using Teste.Web.Models;
-using Teste.Web.Service;
 
 namespace Teste.Web.Controllers
 {
     public class EscolaController : Controller
     {
-        private readonly ILogger<EscolaController> _logger;
+        private IEscolaAppService _escolaAppService;
+        private ITurmaAppService _turmaAppService;
 
-        public EscolaController(ILogger<EscolaController> logger)
+        public EscolaController(IEscolaAppService escolaAppService, ITurmaAppService turmaAppService)
         {
-            _logger = logger;
+            _escolaAppService = escolaAppService;
+            _turmaAppService = turmaAppService;
         }
 
         public IActionResult Escola()
         {
-            var escolas = new EscolaAppService().GetEscolas();
+            var escolas = _escolaAppService.GetEscolas();
 
             return View(escolas);
         }
@@ -38,9 +40,9 @@ namespace Teste.Web.Controllers
         {
             if(ModelState.IsValid)
             {
-                new EscolaAppService().AdicionarEscola(escola);
+                _escolaAppService.AdicionarEscola(escola);
 
-                ViewBag.Mensagem = $"{escola.Nome} adicionada com sucesso!";
+                TempData["MSG_SUCESSO"] = $"{escola.Nome} adicionada com sucesso!";
                 return RedirectToAction(nameof(Escola));
             }
 
@@ -50,7 +52,9 @@ namespace Teste.Web.Controllers
         [HttpGet]
         public IActionResult Atualizar(int id)
         {
-            var escola = new EscolaAppService().GetEscola(id);
+            var escola = _escolaAppService.GetEscola(id);
+
+            ViewBag.Turmas = _turmaAppService.GetTurmasPorEscola(id);
 
             return View(escola);
         }
@@ -60,20 +64,31 @@ namespace Teste.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                new EscolaAppService().AtualizarEscola(escola);
+                _escolaAppService.AtualizarEscola(escola);
 
-                ViewBag.Mensagem = $"{escola.Nome} atualizada com sucesso!";
+                TempData["MSG_SUCESSO"] = $"{escola.Nome} atualizada com sucesso!";
                 return RedirectToAction(nameof(Escola));
             }
+
+            ViewBag.Turmas = _turmaAppService.GetTurmasPorEscola(escola.Id);
 
             return View(escola);
         }
 
         public IActionResult Deletar(int Id)
-        {        
-            new EscolaAppService().DeletarEscola(Id);
+        {
+            var turmas = _turmaAppService.GetTurmasPorEscola(Id);
+            if (turmas.Count > 0)
+            {
+                TempData["MSG_FALHA"] = "Não é possível deletar uma escola que possui turmas vinculadas!";
 
-            ViewBag.Mensagem = "Escola deletada com sucesso!";
+                return Redirect("/Escola/Atualizar/" + Id);
+            }
+
+            _escolaAppService.DeletarEscola(Id);
+
+            TempData["MSG_SUCESSO"] = "Escola deletada com sucesso!";
+
             return RedirectToAction(nameof(Escola));
         }
     }

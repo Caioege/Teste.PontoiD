@@ -24,7 +24,7 @@ namespace Teste.WebApi.Controllers
 
         // GET: api/Escolas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Escola>>> GetEscola()
+        public ActionResult<IEnumerable<Escola>> GetEscola()
         {
             try
             {
@@ -32,14 +32,14 @@ namespace Teste.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
 
         }
 
         // GET: api/Escolas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Escola>> GetEscola(int id)
+        public ActionResult<Escola> GetEscola(int id)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Teste.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
         }
 
@@ -84,7 +84,7 @@ namespace Teste.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
 
         }
@@ -95,19 +95,14 @@ namespace Teste.WebApi.Controllers
         {
             try
             {
-
                 _escolaRepository.Add(escola);
-
-                if (!await _escolaRepository.SaveChangeAsync())
-                {
-                    return NotFound("Não foi possível adicionar a escola informada, verifique os dados e tente novamente.");
-                }
+                await _escolaRepository.SaveChangeAsync();
 
                 return CreatedAtAction("GetTurma", new { id = escola.Id }, escola);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
 
         }
@@ -119,20 +114,21 @@ namespace Teste.WebApi.Controllers
 
             try
             {
+                _escolaRepository.Delete(id);
+
                 var escola = _escolaRepository.Get(id);
                 if (escola == null)
                 {
                     return NotFound("Escola não encontrada.");
                 }
 
-                _escolaRepository.Delete(id);
                 await _escolaRepository.SaveChangeAsync();
 
                 return Ok($"{escola.Nome} deletada com sucesso.");
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
 
         }

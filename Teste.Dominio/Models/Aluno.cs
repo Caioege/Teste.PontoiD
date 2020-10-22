@@ -11,7 +11,7 @@ namespace Teste.Dominio.Models
         [Required(ErrorMessage="O campo Nome é obrigatório!")]
         public string Nome { get; set; }
         [Required(ErrorMessage = "O campo Nascimento é obrigatório!")]
-        public DateTime Nascimento { get; set; }
+        public DateTime? Nascimento { get; set; }
         [Required(ErrorMessage = "O campo Cpf é obrigatório!")]
         public string Cpf { get; set; }
 

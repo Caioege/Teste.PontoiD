@@ -24,7 +24,7 @@ namespace Teste.WebApi.Controllers
 
         // GET: api/Turmas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Turma>>> GetTurma()
+        public ActionResult<IEnumerable<Turma>> GetTurma()
         {
             try
             {
@@ -32,7 +32,7 @@ namespace Teste.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
         }
 
@@ -53,7 +53,7 @@ namespace Teste.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
         }
 
@@ -75,7 +75,7 @@ namespace Teste.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
     }
 }
 
@@ -104,7 +104,7 @@ namespace Teste.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
         }
 
@@ -116,17 +116,13 @@ namespace Teste.WebApi.Controllers
             {
 
                 _turmaRepository.Add(turma);
-
-                if (!await _turmaRepository.SaveChangeAsync())
-                {
-                    return NotFound("Não foi possível adicionar a turma informada, verifique os dados e tente novamente.");
-                }
+                await _turmaRepository.SaveChangeAsync();
 
                 return CreatedAtAction("GetTurma", new { id = turma.Id }, turma);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
         }
 
@@ -136,20 +132,22 @@ namespace Teste.WebApi.Controllers
         {
             try
             {
+
+                _turmaRepository.Delete(id);
+
                 var turma = _turmaRepository.Get(id);
                 if (turma == null)
                 {
                     return NotFound("Turma não encontrada.");
                 }
 
-                _turmaRepository.Delete(id);
                 await _turmaRepository.SaveChangeAsync();
 
                 return Ok($"{turma.Descricao} deletada com sucesso.");
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
         }
 

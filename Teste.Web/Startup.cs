@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Teste.Infra.DataContext;
+using Teste.Infra.Service;
+using Teste.Infra.Service.Interfaces;
 
 namespace Teste.Web
 {
@@ -32,6 +35,10 @@ namespace Teste.Web
             );
 
             services.AddControllersWithViews();
+
+            services.AddScoped<IEscolaAppService, EscolaAppService>();
+            services.AddScoped<ITurmaAppService, TurmaAppService>();
+            services.AddScoped<IAlunoAppService, AlunoAppService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

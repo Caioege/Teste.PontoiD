@@ -33,7 +33,7 @@ namespace Teste.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
             
         }
@@ -57,7 +57,7 @@ namespace Teste.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
             
         }
@@ -80,7 +80,7 @@ namespace Teste.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
         }
 
@@ -101,14 +101,14 @@ namespace Teste.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
             
         }
 
         // PUT: api/Alunos/5
         [HttpPut("{id}")]
-        public ActionResult PutAluno(int id, Aluno aluno)
+        public async Task<ActionResult> PutAluno(int id, Aluno aluno)
         {
 
             try
@@ -125,7 +125,7 @@ namespace Teste.WebApi.Controllers
                     throw new Exception("O aluno a ser atualizado é diferente do código informado");
                 }
 
-                _alunoRepository.SaveChangeAsync();
+                await _alunoRepository.SaveChangeAsync();
 
                 return Ok($"{aluno.Nome} atualizado com sucesso.");
 
@@ -145,17 +145,13 @@ namespace Teste.WebApi.Controllers
             {
 
                 _alunoRepository.Add(aluno);
-
-                if (!await _alunoRepository.SaveChangeAsync())
-                {
-                    return NotFound("Não foi possível adicionar o aluno informado, verifique os dados e tente novamente.");
-                }
+                await _alunoRepository.SaveChangeAsync();
 
                 return CreatedAtAction("GetAluno", new { id = aluno.Id }, aluno);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
             
         }
@@ -179,7 +175,7 @@ namespace Teste.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex }.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Ops! Houve um erro: { ex.Message }.");
             }
 
         }

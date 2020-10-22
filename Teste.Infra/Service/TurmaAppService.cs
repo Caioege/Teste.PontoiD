@@ -1,16 +1,16 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
+using System.Text;
 using Teste.Dominio.Models;
+using Teste.Infra.Service.Interfaces;
 
-namespace Teste.Web.Service
+namespace Teste.Infra.Service
 {
-    public class TurmaAppService
+    public class TurmaAppService : ITurmaAppService
     {
         public List<Turma> GetTurmas()
         {
@@ -53,7 +53,7 @@ namespace Teste.Web.Service
             }
         }
 
-        public bool AdicionarTurma(Turma turma)
+        public void AdicionarTurma(Turma turma)
         {
             using (var httpClientHandler = new HttpClientHandler())
             {
@@ -73,13 +73,11 @@ namespace Teste.Web.Service
 
                     var url = "https://localhost:5001/api/Turmas";
                     var response = client.PostAsync(url, turmaJson).Result;
-
-                    return true;
                 }
             }
         }
 
-        public bool AtualizarTurma(Turma turma)
+        public void AtualizarTurma(Turma turma)
         {
             using (var httpClientHandler = new HttpClientHandler())
             {
@@ -99,8 +97,43 @@ namespace Teste.Web.Service
 
                     var url = "https://localhost:5001/api/Turmas/" + turma.Id;
                     var response = client.PutAsync(url, turmaJson).Result;
+                }
+            }
+        }
 
-                    return true;
+        public List<Turma> GetTurmasPorEscola(int id)
+        {
+            using (var httpClientHandler = new HttpClientHandler())
+            {
+                httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)768 | (SecurityProtocolType)3072;
+
+                using (var client = new HttpClient(httpClientHandler))
+                {
+                    var url = "https://localhost:5001/api/Turmas/getturmaescola/" + id;
+                    var response = client.GetStringAsync(url);
+
+                    var turmas = JsonConvert.DeserializeObject(response.Result, typeof(List<Turma>));
+
+                    return turmas as List<Turma>;
+                }
+            }
+        }
+
+        public void DeletarTurma(int id)
+        {
+            using (var httpClientHandler = new HttpClientHandler())
+            {
+                httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)768 | (SecurityProtocolType)3072;
+                //send request
+
+                using (var client = new HttpClient(httpClientHandler))
+                {
+                    var url = "https://localhost:5001/api/Turmas/" + id;
+                    var response = client.DeleteAsync(url).Result;
                 }
             }
         }
