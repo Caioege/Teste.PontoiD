@@ -1,5 +1,7 @@
 # Teste Desenvolvedor .NET - Ponto iD
 
+📄 https://www.linkedin.com/in/caio-henrick/
+
 ## 🚀 O teste é composto de 3 objetivos:
 
 [X] **1º:** Modelar um banco de dados simples, no qual deverá possuir no mínimo três tabelas e de preferência do tipo self-contained.
@@ -9,7 +11,7 @@ Já a terceira tabela será responsável por armazenar as informações do Aluno
 
 [X] **2º:** Desenvolver em C# (ASP.NET Core preferencialmente) uma API REST, fornecendo as operações CRUD para as tabelas modeladas. É desejável que a camada de persistência utilize o Entity Framework.
 
-[X] **3º** Desenvolver um aplicativo Web MVC, SIMPLES, que faça as operações básicas modeladas, acessando os endpoints da API desenvolvida, para alimentar o banco de dados.
+[X] **3º:** Desenvolver um aplicativo Web MVC, SIMPLES, que faça as operações básicas modeladas, acessando os endpoints da API desenvolvida, para alimentar o banco de dados.
 
 ## 🎲 Os projetos
 
