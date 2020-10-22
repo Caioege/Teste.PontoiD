@@ -11,7 +11,7 @@ Já a terceira tabela será responsável por armazenar as informações do Aluno
 
 [X] **3º** Desenvolver um aplicativo Web MVC, SIMPLES, que faça as operações básicas modeladas, acessando os endpoints da API desenvolvida, para alimentar o banco de dados.
 
-## 🎲 O projeto
+## 🎲 Os projetos
 
 O teste é composto de 4 projetos:
 1. Teste.Dominio - Onde são armazenados as informações relacionados aos modelos da aplicação (Models e Enums).
