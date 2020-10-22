@@ -2,7 +2,7 @@
 
 📄 https://www.linkedin.com/in/caio-henrick/
 
-## 🚀 O teste é composto de 3 objetivos:
+## 🚀 O teste é composto por 3 objetivos:
 
 [X] **1º:** Modelar um banco de dados simples, no qual deverá possuir no mínimo três tabelas e de preferência do tipo self-contained.
 A primeira tabela irá armazenar as informações da Escola: Nome e Código INEP;
